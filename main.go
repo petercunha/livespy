@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-	"time"
 	"os/exec"
 	"github.com/gorilla/websocket"
+	"./util"
 
 	b64 "encoding/base64"
 )
@@ -21,13 +21,32 @@ func main() {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		var conn, _ = upgrader.Upgrade(w, r, nil)
 		fmt.Println("Client connection")
-		go conn.WriteMessage(1, []byte(runCom("ls -lah")))
+
+		// Send dashboard info (index.html)
+
+		// Accept execute requests (cmd.html)
 		go func(conn *websocket.Conn) {
-			ch := time.Tick(3 * time.Second)
-			for range ch {
-				conn.WriteMessage(1, []byte(runCom("ls -lah")))
+			for {
+				_, p, err := conn.ReadMessage()
+				if err != nil {
+					return
+				}
+				
+				if string(p) == "getDashboardData" {
+					// index.html
+					conn.WriteMessage(1, []byte(runCom("ls -lah")))
+				} else {
+					// cmd.html
+					out, err := util.Execute(string(p))
+					if err != nil {
+						fmt.Println(err)
+					}
+					conn.WriteMessage(1, []byte(b64.StdEncoding.EncodeToString([]byte(out))))
+				}
+				
 			}
 		}(conn)
+
 	})
 	fmt.Println("Server started")
 	http.ListenAndServe(":8080", nil)

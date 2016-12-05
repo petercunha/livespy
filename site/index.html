@@ -30,6 +30,7 @@
 				document.getElementById('data').innerHTML = "<pre>" + window.atob(e.data) + "</pre>"
 			}
 			ws.onopen = function(e) {
+				ws.send("getDashboardData")
 				document.getElementById('status').style.backgroundColor = "#9ef442"
 				document.getElementById('status').innerHTML = "<h3>Client connected</h3>"
 			}

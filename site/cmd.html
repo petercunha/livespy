@@ -14,10 +14,19 @@
 			<li style="float:right"><a href="about.html">About</a></li>
 		</ul>
 
-		<h1>Under construction</h1>
+		<div id="status" style="background-color: #fca3a1;">
+			<h1>Client disconnected.</h1>
+		</div>
+
+			Command:<br>
+			<input type="text" id="commandText" name="command"><br>
+			<button id="commandButton" onclick="sendCmd()">Execute</button>
+
+		<div id="data" style="background-color: pink;">
+
+		</div>
 
 		<script>
-
 			var ws = new WebSocket("ws://localhost:8080/ws");
 
 			ws.onmessage = function(e) {
@@ -30,6 +39,19 @@
 			ws.onclose = function(e) {
 				document.getElementById('status').style.backgroundColor = "#fca3a1"
 				document.getElementById('status').innerHTML = "<h1>Client disconnected</h1>"
+			}
+
+			document.getElementById("commandText").addEventListener("keyup", function(event) {
+				event.preventDefault();
+				if (event.keyCode == 13) {
+					document.getElementById("commandButton").click();
+					document.getElementById("commandText").value = "";
+				}
+			});
+
+			function sendCmd() {
+				ws.send(document.getElementById('commandText').value)
+				return false
 			}
 		</script>
 	</body>
