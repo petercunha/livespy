@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>LiveSpy | About</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="cmd.html">Execute</a></li>
+			<li><a href="spy.html">Spy</a></li>
+			<li style="float:right"><a  class="active" href="about.html">About</a></li>
+		</ul>
+
+		<h1>Under construction</h1>
+
+		<script>
+
+			var ws = new WebSocket("ws://localhost:8080/ws");
+
+			ws.onmessage = function(e) {
+				document.getElementById('data').innerHTML = "<pre>" + window.atob(e.data) + "</pre>"
+			}
+			ws.onopen = function(e) {
+				document.getElementById('status').style.backgroundColor = "#9ef442"
+				document.getElementById('status').innerHTML = "<h3>Client connected</h3>"
+			}
+			ws.onclose = function(e) {
+				document.getElementById('status').style.backgroundColor = "#fca3a1"
+				document.getElementById('status').innerHTML = "<h1>Client disconnected</h1>"
+			}
+		</script>
+	</body>
+</html>
