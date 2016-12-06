@@ -5,11 +5,10 @@ LiveSpy is an application that monitors a users computer and sends back screensh
 
 -
 
-How to compile:
+## Compilation
 ```shell
-git clone https://github.com/petercunha/livespy/
-cd livespy/ && go build main.go
-./main
+$ git clone https://github.com/petercunha/livespy/
+$ cd livespy/ && go build main.go
+$ ./main
 ```
-
 Once livespy is running, visit `http://localhost:8080` in your favorite web browser.
