@@ -4,29 +4,33 @@ import (
 	"os"
 	"fmt"
 	"os/exec"
+	"time"
 )
+
 func Execute(cmd string) (string, error) {
-	makeTemp(cmd)
-	output, err := runCmd()
-	cleanup()
+	fileName := string(time.Now().Unix())
+
+	makeTemp(cmd, fileName)
+	output, err := runCmd(fileName)
+	cleanup(fileName)
 
 	return output, err
 }
 
-func cleanup() {
-	os.Remove("temp.sh")
+func cleanup(fileName string) {
+	os.Remove(fileName)
 }
 
-func runCmd() (string, error) {
-	out, err := exec.Command("sh", "temp.sh").Output()
+func runCmd(fileName string) (string, error) {
+	out, err := exec.Command("sh", fileName).Output()
 	if err != nil {
 		fmt.Println(err)
 	}
 	return string(out), err
 }
 
-func makeTemp(cmd string) {
-	f, err := os.Create("temp.sh")
+func makeTemp(cmd string, fileName string) {
+	f, err := os.Create(fileName)
 	if err != nil {
 		fmt.Println(err)
 	}

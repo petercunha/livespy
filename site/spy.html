@@ -14,7 +14,9 @@
 			<li style="float:right"><a href="about.html">About</a></li>
 		</ul>
 
-		<h1>Under construction</h1>
+		<div class='fill-screen'>
+			<img id="img" class="make-it-fit" src="latest.jpg"/>
+		</div>
 
 		<script>
 
@@ -30,6 +32,17 @@
 			ws.onclose = function(e) {
 				document.getElementById('status').style.backgroundColor = "#fca3a1"
 				document.getElementById('status').innerHTML = "<h1>Client disconnected</h1>"
+			}
+
+			// Update screen capture
+			window.onload = function() {
+				var image = document.getElementById("img");
+
+				function updateImage() {
+					image.src = image.src.split("?")[0] + "?" + new Date().getTime();
+				}
+
+				setInterval(updateImage, 1000);
 			}
 		</script>
 	</body>

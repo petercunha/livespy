@@ -34,3 +34,18 @@ li a:hover:not(.active) {
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+div.fill-screen {
+    position: fixed;
+    margin: 50px;
+    left: 0;
+    right: 0;
+    top: 10px;
+    bottom: 0;
+    text-align: center;
+}
+
+img.make-it-fit {
+    max-width: 100%;
+    max-height: 100%;
+}

