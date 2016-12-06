@@ -1,7 +1,8 @@
 # livespy
 LiveSpy is an application that monitors a users computer and sends back screenshots, process lists, window titles, and other information to a sneaky hacker every three seconds. This is a project I'm writing to learn websockets in Go.
 
-*This project is currently under development for Macs and Linux machines only.*
+![Demo](https://i.imgur.com/CuYJN6D.gif)
+*This project is currently under development for Mac and Linux machines only.*
 
 -
 
