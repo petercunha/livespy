@@ -12,4 +12,4 @@ $ git clone https://github.com/petercunha/livespy/
 $ cd livespy/ && go build main.go
 $ ./main
 ```
-Once livespy is running, visit `http://localhost:8080` in your favorite web browser.
+Once livespy is running, visit `http://localhost:8080` in your favorite web browser. 
